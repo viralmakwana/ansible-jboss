@@ -1,0 +1,43 @@
+--- 
+- name: Installing Java for dependancy 
+  yum: name=java-1.8.0-openjdk state=present
+  
+- name: Copying the JBoss EAP tarball into tmp before we extract
+  copy: src=eap.tar.bz2 dest={{ tmp_eap }}
+  
+- name: Extracting the archive into the top level JBoss EAP directory
+  unarchive: src={{ tmp_eap }} dest={{ extracted_dir }}
+
+- name: Copying the Data Grid modules into tmp before we extract
+  copy: src=datagridmodules.tar.bz2 dest={{ tmp_jdgmodules }}
+
+- name: Extracting the Data Grid modules archive into the top level JDG directory
+  unarchive: src={{ tmp_jdgmodules }} dest={{ extracted_dir }}
+
+- name: Creating JBoss directory structure
+  file: path=/etc/jboss-as state=directory mode=0755
+
+- name: Add JBoss group
+  group: name=jboss-as
+
+- name: Add JBoss user and place into the JBoss group
+  user: name=jboss-as group=jboss-as home={{ eap_directory }}
+
+- name: Add in the JBoss startup file
+  template: src=jboss-as.conf dest=/etc/jboss-as/jboss-as.conf
+
+- name: Add in the JBoss init script
+  template: src=jboss-as-domain.sh dest=/etc/init.d/jboss-as-domain
+
+- name: Adding JBoss service to chkconfig management
+  shell: /sbin/chkconfig --add jboss-as-domain
+
+- name: Change ownership of JDG modules directory
+  file: path={{ jdg_directory }} owner=jboss-as group=jboss-as recurse=yes 
+
+- name: Change ownership of JBoss EAP directory
+  file: path={{ eap_directory }} owner=jboss-as group=jboss-as recurse=yes
+
+- name: Copy the JDG Modules to the JBoss EAP modules directory
+  copy: src={{ jdg_modules }} dest={{ eap_jdgmodules }} 
+  notify: Start the JBoss EAP service in domain mode

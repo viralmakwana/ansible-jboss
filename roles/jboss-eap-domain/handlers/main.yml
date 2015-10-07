@@ -1,0 +1,3 @@
+---
+- name: Start the JBoss EAP service in domain mode
+  service: name=jboss-as-domain state=started
