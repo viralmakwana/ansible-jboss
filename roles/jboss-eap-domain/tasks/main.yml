@@ -29,6 +29,9 @@
 - name: Add in the JBoss init script
   template: src=jboss-as-domain.sh dest=/etc/init.d/jboss-as-domain
 
+- name: Setting JBoss EAP permissions
+  file: path=/etc/init.d/jboss-as-domain owner=jboss-as mode=0755
+
 - name: Adding JBoss service to chkconfig management
   shell: /sbin/chkconfig --add jboss-as-domain
 
