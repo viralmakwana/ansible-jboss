@@ -1,11 +1,11 @@
 ---
 - name: Checking system compatibility, please wait...
   when: ansible_distribution != "RedHat"
-  fail: msg="This system is not supported, please ensure this is run on RedHat systems only"
+  fail: msg="THIS IS NOT A SUPPORTED OS, PLEASE ENSURE YOU RUN THIS ON A REDHAT SYSTEM"
 
 - name: Checking RedHat version
   when: ansible_distribution_major_version != "6"
-  fail: msg="This does not seem to be a RHEL 6 product"
+  fail: msg="THIS IS NOT A SUPPORTED REDHAT VERSION. PLEASE ENSURE YOUR USING A RHEL 6 PRODUCT"
 
 - name: Installing Java for dependancy 
   yum: name=java-1.8.0-openjdk state=present
