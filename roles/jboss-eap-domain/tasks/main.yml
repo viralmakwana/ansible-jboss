@@ -23,14 +23,17 @@
 - name: Add JBoss user and place into the JBoss group
   user: name=jboss-as group=jboss-as home={{ eap_directory }}
 
-- name: Add in the JBoss startup file
+- name: Adding the JBoss startup file
   template: src=jboss-as.conf dest=/etc/jboss-as/jboss-as.conf
 
-- name: Add in the JBoss init script
+- name: Adding the JBoss init script
   template: src=jboss-as-domain.sh dest=/etc/init.d/jboss-as-domain
 
 - name: Setting JBoss EAP permissions
   file: path=/etc/init.d/jboss-as-domain owner=jboss-as mode=0755
+
+- name: Still fixing permissions...
+  file: path=/etc/jboss-as/jboss-as.conf owner=jboss-as mode=0755
 
 - name: Adding JBoss service to chkconfig management
   shell: /sbin/chkconfig --add jboss-as-domain
