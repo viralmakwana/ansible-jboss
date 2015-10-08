@@ -1,11 +1,10 @@
 ---
-#- name: Checking system compatibility  
-#  fail: msg="This system is not supported, please ensure this is run on RedHat systems only"
-#  when: ansible_os_family != "RedHat"
+- name: Checking system compatibility, please wait...
+  when: ansible_distribution != "RedHat"
+  fail: msg="This system is not supported, please ensure this is run on RedHat systems only"
 
 - name: Installing Java for dependancy 
   yum: name=java-1.8.0-openjdk state=present
-  when: ansible_os_family == "RedHat" and ansible_distribution_major_version == "6"
 
 - name: Copying the JBoss EAP tarball into tmp before we extract
   copy: src=eap.tar.bz2 dest={{ tmp_eap }}
