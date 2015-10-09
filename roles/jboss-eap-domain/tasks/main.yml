@@ -1,4 +1,7 @@
 ---
+
+### Created for BP to deploy a JBoss EAP instance; domain mode, with domain.xml + host.xml. Seperate role created for just the "slave; host.xml"
+
 - name: Checking system compatibility, please wait...
   when: ansible_distribution != "RedHat"
   fail: msg="THIS IS NOT A SUPPORTED OS, PLEASE ENSURE YOU RUN THIS ON A REDHAT SYSTEM"
