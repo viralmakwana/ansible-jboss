@@ -1,6 +1,6 @@
-This is a repo, for deploying JBoss EAP, with JBoss JDG modules.
-In this configuration, EAP will be running as the server, and we rely on the external connectors: Hot Rod, Memcached or REST to access the cache from the application.
+This is a simple playbook for deploying JBoss EAP in domain mode, with JBoss JDG modules running in Client/Server mode.
+This deployment does not include the software as you need a valid subscription if using RedHat provided binaries. When you have the relevant software place the software place the JBoss EAP + JBoss JDG modules into:
 
-The software being used here, is from Red Hat and for obvious reasons has not been included. You will need to ensure that a files directory exists, in the roles/<role_being_used> path and place the relevant software therin. Also ensure that you are using your own hosts file.
+roles/$ROLE/files. Due to the nature of the playbook, ansible should automatically pickup these files when the playbook is run. Also ensure that the hosts file corresponds to your environment. This playbook will not run on Ubuntu/Debian/Arch flavors of Linux due to a conditonal check in the playbook. If required this can be removed so it can run on other environments.
 
 
