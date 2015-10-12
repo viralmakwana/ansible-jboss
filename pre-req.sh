@@ -12,6 +12,8 @@ g='\e[32m'
 y='\e[93m' 
 b='\e[34m'
 
+rhn_registered=$(subscription-manager status | cut -d ":" -f2 | grep Current | sed -e 's/^[ \t]*//')
+
 # Check to see if system is registered with RHN
 
 echo ""
@@ -26,14 +28,14 @@ echo -e "$b[ INFO ]$w Pre deployment checks for server: `hostname`"
 echo ""
 
 
-#if [ "$rhn_registered" != "Current" ]; then 
-#		echo -e "$r[ WARN ]$w System not registered, please use subscription-manager to register this system to the RHN"
-#	exit 1
-#	else echo -e "$g[ OK ]$w System is registered with the RHN"
+if [ "$rhn_registered" != "Current" ]; then 
+		echo -e "$r[ WARN ]$w System not registered, please use subscription-manager to register this system to the RHN"
+	
+	else echo -e "$g[ OK ]$w System is registered with the RHN"
  
-#fi
+fi
 
-#echo ""
+echo ""
 
 
 #Check JDG user
@@ -61,6 +63,7 @@ echo ""
 
 if [ $(rpm -qa | grep httpd | wc -l) -gt 0 ]; then
 	echo -e "$r[ WARN ]$w Seems like Apache, or a package which compliments Apache ( httpd-tools )  has been installed via a package manager. Please uninstall this as it may conflict with the setup"
+echo ""
 	else
 	echo -e "$g[ OK ]$w Seems like there is no Apache installation here, the Ansible playbook will be providing a custom Apache 2.4 installation" 
 fi
