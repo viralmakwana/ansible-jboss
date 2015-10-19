@@ -67,3 +67,4 @@ echo ""
 	else
 	echo -e "$g[ OK ]$w Seems like there is no Apache installation here, the Ansible playbook will be providing a custom Apache 2.4 installation" 
 fi
+echo ""
