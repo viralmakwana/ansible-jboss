@@ -1,3 +1,4 @@
 ---
 - name: Start JBoss
   service: name=jboss-as-domain state=started
+
