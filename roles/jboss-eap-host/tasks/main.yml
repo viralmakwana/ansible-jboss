@@ -20,7 +20,7 @@
   file: path=/etc/init.d/jboss-as-host owner=jboss-as mode=0755
 
 - name: Still fixing permissions...
-  file: path=/etc/jboss-as/jboss-as.conf owner=jboss-as mode=0755
+  file: path=/etc/jboss-as-host/jboss-as-host.conf owner=jboss-as mode=0755
 
 - name: Change ownership of JDG modules directory
   file: path={{ jdg_directory }} owner=jboss-as group=jboss-as recurse=yes 
@@ -30,6 +30,6 @@
 
 - name: Copying in the JBoss domain configuration files
   template: src=host02-6.4.0-twb-2-profiles-v3.xml dest=/app/redhat/jboss/jboss-eap-6.4/domain/configuration/host02-6.4.0-twb-2-profiles-v3.xml
-  notify: Start JBoss
+  notify: Start JBoss host
 
 

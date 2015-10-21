@@ -5,8 +5,12 @@
 # chkconfig: - 80 20
 # description: JBoss AS Domain
 # processname: domain
-# pidfile: /var/run/jboss-as/jboss-as-domain.pid
-# config: /etc/jboss-as/jboss-as.conf
+# pidfile: /var/run/jboss-as/jboss-as-host.pid
+# config: /etc/jboss-as-host/jboss-as-host.conf
+
+### There has been some edits to this init script, primarily to accomodate the secondary EAP instance on the single host. As this will be referenced as part of the EAP - Host setup, I have ensured that that no domain config will stamp on the deloyment. If any further edits are required, please double check everything ### 
+
+
 
 # Source function library.
 . /etc/init.d/functions
@@ -56,7 +60,7 @@ fi
 
 JBOSS_SCRIPT=$JBOSS_HOME/bin/domain.sh
 
-prog='jboss-as'
+prog='jboss-as-host'
 
 CMD_PREFIX=''
 
