@@ -1,5 +1,0 @@
----
-- hosts: local
-  roles:
-        - role: jboss-eap-domain-host
-
