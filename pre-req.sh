@@ -3,6 +3,8 @@
 # Author: Viral Makwana
 # Company: Red Hat
 # Purpose: To run a few sanity checks before we deploy JBoss EAP
+# License: Apache
+
 
 # Everyone loves colours...
 
@@ -19,8 +21,8 @@ rhn_registered=$(subscription-manager status | cut -d ":" -f2 | grep Current | s
 echo ""
 
 echo "** This script will run basic checks before you deploy the JBoss Ansible playbook"
-echo "** It will not make any changes, and you may wish to run further checks in"
-echo "** addition"
+echo "** It will not make any changes to the system, and you may wish to run further checks in"
+echo "** addition to those here"
 echo ""
 
 echo -e "$b[ INFO ]$w Pre deployment checks for server: `hostname`"
