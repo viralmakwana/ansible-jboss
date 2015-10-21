@@ -7,32 +7,8 @@
   when: ansible_distribution_major_version != "6"
   fail: msg="THIS IS NOT A SUPPORTED REDHAT VERSION. PLEASE ENSURE YOUR USING A RHEL 6 PRODUCT"
 
-#- name: Installing Java for dependancy 
-#  yum: name=java-1.8.0-openjdk state=present
-
-#- name: Copying the JBoss EAP tarball into tmp before we extract
-#  copy: src=jboss-eap.tar.bz2 dest={{ tmp_eap }}
-  
-#- name: Copying the Data Grid modules into tmp before we extract
-#  copy: src=jboss-jdg-modules.tar.bz2 dest={{ tmp_jdgmodules }}
-
-#- name: Extracting the archive into the top level JBoss EAP directory
-#  unarchive: src={{ tmp_eap }} dest={{ extracted_dir }}
-
-#- name: Extracting the Data Grid modules archive into the top level JDG directory
-#  unarchive: src={{ tmp_jdgmodules }} dest={{ extracted_dir }}
-
-#- name: Copy the JDG Modules to the JBoss EAP modules directory
-#  copy: src={{ jdg_modules }} dest={{ eap_jdgmodules }} 
-
 - name: Creating JBoss host directory structure
   file: path=/etc/jboss-as-host state=directory mode=0755
-
-#- name: Adding JBoss group
-#  group: name=jboss-as
-
-#- name: Add JBoss user and place into the JBoss group
-#  user: name=jboss-as group=jboss-as home={{ eap_directory }}
 
 - name: Adding the JBoss startup file
   template: src=jboss-as-host.conf dest=/etc/jboss-as-host/jboss-as.conf
@@ -53,12 +29,7 @@
   file: path={{ eap_directory }} owner=jboss-as group=jboss-as recurse=yes
 
 - name: Copying in the JBoss domain configuration files
-  copy: src=host02-6.4.0-twb-2-profiles-v3.xml dest=/app/redhat/jboss/jboss-eap-6.4/domain/configuration/host02-6.4.0-twb-2-profiles-v3.xml
-
-
-#- name: Adding JBoss service to chkconfig management
-#  shell: /sbin/chkconfig --add jboss-as-domain
-#  notify:
-#        - Start JBoss
+  template: src=host02-6.4.0-twb-2-profiles-v3.xml dest=/app/redhat/jboss/jboss-eap-6.4/domain/configuration/host02-6.4.0-twb-2-profiles-v3.xml
+  notify: Start JBoss
 
 
