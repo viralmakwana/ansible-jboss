@@ -58,12 +58,8 @@
 
 - name: Setting JBoss EAP permissions
   file: path=/etc/init.d/jboss-as-domain owner=jboss-as mode=0755
+  notify: Start JBoss
 
-- name: Creating the JBoss user - for ManagementRealm 
-  shell: /root/add-jboss-user.sh
-
-- name: INFO 
-  debug: msg="This script has added a JBoss user called bP0il2015!. JBoss base64 encodes the password, and requires YOU to add this into the host XML file. You can find the base64 encoded password in /tmp/jboss-password. Add this into the <server-identities> block on the host XML. Only after this is done, can you proceed with running the jboss-eap-host playbook to continue setting up the environment."
 
 #- name: Adding JBoss service to chkconfig management
 #  shell: /sbin/chkconfig --add jboss-as-domain

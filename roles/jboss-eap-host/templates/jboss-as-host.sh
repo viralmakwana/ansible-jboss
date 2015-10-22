@@ -50,9 +50,9 @@ if [ -z "$SHUTDOWN_WAIT" ]; then
   SHUTDOWN_WAIT=30
 fi
 
-#if [ -z "$JBOSS_DOMAIN_CONFIG" ]; then
-#  JBOSS_DOMAIN_CONFIG=domain.xml
-#fi
+if [ -z "$JBOSS_DOMAIN_CONFIG" ]; then
+  JBOSS_DOMAIN_CONFIG=domain.xml
+fi
 
 if [ -z "$JBOSS_HOST_CONFIG" ]; then
   JBOSS_HOST_CONFIG=host.xml

@@ -1,3 +1,3 @@
 ---
-- name: Start JBoss
+- name: Start JBoss Host
   service: name=jboss-as-host state=started

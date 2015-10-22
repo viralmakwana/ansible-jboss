@@ -11,25 +11,29 @@
   file: path=/etc/jboss-as-host state=directory mode=0755
 
 - name: Adding the JBoss startup file
-  template: src=jboss-as-host.conf dest=/etc/jboss-as-host/jboss-as.conf
+  template: src=jboss-as-host.conf dest=/etc/jboss-as-host/jboss-as-host.conf
 
 - name: Adding the JBoss init script
   template: src=jboss-as-host.sh dest=/etc/init.d/jboss-as-host
 
+- name: Copying JBoss Host configuration file
+  template: src=host02-6.4.0-twb-v3.xml dest=/app/redhat/jboss/jboss-eap-6.4/domain/configuration/host02-6.4.0-twb-v3.xml
+
 - name: Setting JBoss EAP permissions
   file: path=/etc/init.d/jboss-as-host owner=jboss-as mode=0755
 
-- name: Still fixing permissions...
+- name: Fixing permissions...
   file: path=/etc/jboss-as-host/jboss-as-host.conf owner=jboss-as mode=0755
 
-- name: Change ownership of JDG modules directory
-  file: path={{ jdg_directory }} owner=jboss-as group=jboss-as recurse=yes 
+- name: Still fixing permissions
+  file: path=/app/redhat/jboss/jboss-eap-6.4/domain/configuration/host02-6.4.0-twb-v3.xml owner=jboss-as mode=0755
 
-- name: Change ownership of JBoss EAP directory
-  file: path={{ eap_directory }} owner=jboss-as group=jboss-as recurse=yes
+- name: Adding the JBoss user and updating the host02-6.4.0-twb-2-profiles-v3.xml file to include the base64 hash of the password
+  shell: /root/BP-Oil-Project/ansible-playbook/roles/jboss-eap-host/files/add-jboss-user.sh
+  notify: Start JBoss Host
 
-- name: Copying in the JBoss domain configuration files
-  template: src=host02-6.4.0-twb-2-profiles-v3.xml dest=/app/redhat/jboss/jboss-eap-6.4/domain/configuration/host02-6.4.0-twb-2-profiles-v3.xml
-  notify: Start JBoss host
+
+
+
 
 
