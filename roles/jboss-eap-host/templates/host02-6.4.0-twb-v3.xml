@@ -7,7 +7,6 @@
             <security-realm name="ManagementRealm">
                   <server-identities>
                      <secret value="TWFjaW50b3NoNjk5Lg==" />
-
                   </server-identities> 
                 <authentication>
                     <!--local default-user="$local" skip-group-loading="true" /-->

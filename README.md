@@ -11,3 +11,4 @@ This setup will have 2 replicated caches configured. Replication because, eventu
 1. Server is subscribed to the RHN
 2. No changes are to be made to the templates and files located within this playbook.
 3. No software is included ( might be for testing ). Log into https://access.redhat.com to download the relevant software. There is a vars ( variable ) file located within each role. You may need to edit this file to include the correct name of each software file.
+4. Due to the hellish nature of XML, text processing tools ( SED,AWK etc ) are just not comprehensive enough and certain tasks are too convuluted with said tools. In its place I have downloaded xsh, which is an XML shell. This is provided by the perl-CPAN package which can be installed on any system.

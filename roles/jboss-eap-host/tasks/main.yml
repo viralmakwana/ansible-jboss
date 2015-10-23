@@ -19,7 +19,7 @@
 - name: Copying JBoss Host configuration file
   template: src=host02-6.4.0-twb-v3.xml dest=/app/redhat/jboss/jboss-eap-6.4/domain/configuration/host02-6.4.0-twb-v3.xml
 
-- name: Setting JBoss EAP permissions
+- name: Setting JBoss init script permissions
   file: path=/etc/init.d/jboss-as-host owner=jboss-as mode=0755
 
 - name: Fixing permissions...
