@@ -9,4 +9,5 @@ Ansible playbook to deploy on a single host: JBoss EAP Domain Controller + Host.
 This setup will have 2 replicated caches configured. Replication because, eventually there will be another 2 hosts. Certain aspects are assumed within this playbook :
 
 1. Server is subscribed to the RHN
-
+2. No changes are to be made to the templates and files located within this playbook.
+3. No software is included ( might be for testing ). Log into https://access.redhat.com to download the relevant software. There is a vars ( variable ) file located within each role. You may need to edit this file to include the correct name of each software file.
