@@ -1,4 +1,0 @@
----
-- name: Start JBoss JWS
-  service: name=jws state=started
-
