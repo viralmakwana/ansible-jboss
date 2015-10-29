@@ -1,0 +1,5 @@
+---
+
+extracted_dir: /opt
+jdg_directory: /opt/jboss-datagrid-6.5.1-server 
+tmp_jdg: /tmp/jboss-datagrid-6.5.1-server.zip
