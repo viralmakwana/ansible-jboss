@@ -1,0 +1,6 @@
+---
+- hosts: local
+  sudo: no
+  roles:
+        - role: jboss-jdg
+

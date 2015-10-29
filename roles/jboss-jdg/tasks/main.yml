@@ -1,0 +1,42 @@
+--- 
+- name: Checking system compatibility, please wait...
+  when: ansible_distribution != "RedHat"
+  fail: msg="THIS SYSTEM DOES NOT SEEM TO BE A REDHAT ONE. PLEASE DOUBLE CHECK"
+
+- name: Checking RedHat version
+  when: ansible_distribution_major_version != "6"
+  fail: msg="PLEASE ENSURE THIS PLAYBOOK IS RUN ON RHEL 6 SYSTEMS ONLY"
+
+- name: Installing Java for dependancy 
+  yum: name=java-1.8.0-openjdk state=present
+  
+- name: Copying the JBoss JDG tarball into tmp before we extract
+  copy: src=jboss-datagrid-6.5.1-server.zip dest={{ tmp_jdg }}
+  
+- name: Extracting JDG into /opt
+  unarchive: src={{ tmp_jdg }} dest={{ extracted_dir }}
+
+- name: Creating JBoss directory structure
+  file: path=/etc/jboss-datagrid state=directory mode=0755
+
+- name: Add JBoss group
+  group: name=jboss-jdg
+
+- name: Add JBoss user and place into the JBoss group
+  user: name=jboss-jdg group=jboss-jdg home={{ jdg_directory }}
+
+- name: Addding JDG configuration file
+  template: src=jboss-datagrid.conf dest=/etc/jboss-datagrid/jboss-datagrid.conf
+
+- name: Adding JDG init script
+  template: src=jboss-datagrid.sh dest=/etc/init.d/jboss-datagrid
+
+- name: Setting JDG permissions
+  file: path=/etc/init.d/jboss-datagrid owner=jboss-jdg mode=0755
+
+- name: Adding JBoss JDG to chkconfig management
+  shell: /sbin/chkconfig --add jboss-datagrid
+
+- name: Change ownership of JDG directory
+  file: path={{ jdg_directory }} owner=jboss-jdg group=jboss-jdg recurse=yes 
+  notify: Starting JBoss JDG

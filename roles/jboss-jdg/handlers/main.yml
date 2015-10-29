@@ -1,0 +1,3 @@
+---
+- name: Starting JBoss JDG
+  service: name=jboss-datagrid state=started

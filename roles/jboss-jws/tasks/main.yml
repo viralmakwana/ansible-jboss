@@ -1,0 +1,42 @@
+---
+- name: Checking system compatibility, please wait...
+  when: ansible_distribution != "RedHat"
+  fail: msg="THIS IS NOT A SUPPORTED OS, PLEASE ENSURE YOU RUN THIS ON A REDHAT SYSTEM"
+
+- name: Checking RedHat version
+  when: ansible_distribution_major_version != "6"
+  fail: msg="THIS IS NOT A SUPPORTED REDHAT VERSION. PLEASE ENSURE YOUR USING A RHEL 6 PRODUCT"
+
+- name: Creating JBoss JWS directory structure, in case it doesnt exist
+  file: path=/app/apache/httpd state=directory mode=0755
+
+- name: Adding the Apache Group
+  group: name=apache state=present gid=48
+
+- name: Adding the Apache user
+  user: name=apache state=present shell=/bin/sh uid=48 group=apache
+
+- name: Extracting JWS to the JWS directory structure
+  synchronize: src=/root/BP-Oil-Project/ansible-playbook/roles/jboss-jws/files/jboss-ews-2.1/httpd/ dest=/app/apache/httpd recursive=yes
+
+- name: Now setting up mod_cluster configuration Part 1
+  template: src=mod_cluster.conf dest=/app/apache/httpd/conf.d/mod_cluster.conf
+
+- name: Part 2 of mod_cluster setup
+  template: src=http-mod-cluster.conf dest=/app/apache/httpd/conf.d/http-mod-cluster.conf
+
+- name: Setting JBoss EWS Apache permissions
+  file: path=/app/apache/httpd owner=apache group=apache mode=0755 recurse=yes
+
+- name: Dropping in the JBoss EWS Script
+  template: src=start-jws.sh dest=/etc/init.d/jws 
+
+- name: Setting init script permissions
+  file: path=/etc/init.d/jws mode=0755  
+  notify: Start JBoss JWS
+
+
+
+
+
+
