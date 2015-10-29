@@ -11,6 +11,9 @@
 - name: Installing Java for dependancy 
   yum: name=java-1.8.0-openjdk state=present
 
+- name: Creating the EAP installation directory
+  file: path=/app/redhat/jboss/jboss-as-domain mode=0755 state=directory
+
 - name: Copying the JBoss-EAP tarball into /tmp before we extract
   copy: src=jboss-eap.tar.bz2 dest={{ tmp_eap }}
   
@@ -45,13 +48,13 @@
   file: path={{ jdg_directory }} owner=jboss-as group=jboss-as recurse=yes 
 
 - name: Change ownership of JBoss EAP directory
-  file: path={{ eap_directory }} owner=jboss-as group=jboss-as recurse=yes
+  file: path=/app/redhat/jboss/jboss-as-domain/jboss-eap-6.4 owner=jboss-as group=jboss-as recurse=yes
 
 - name: Copying in the JBoss domain configuration files
-  template: src=domain-6.4.0-twb-2-profiles-v3.xml dest=/app/redhat/jboss/jboss-eap-6.4/domain/configuration/domain-6.4.0-twb-2-profiles-v3.xml
+  template: src=domain-6.4.0-twb-2-profiles-v3.xml dest=/app/redhat/jboss/jboss-as-domain/jboss-eap-6.4/domain/configuration/domain-6.4.0-twb-2-profiles-v3.xml
 
 - name: Still copying the JBoss configuration files
-  template: src=host01-6.4.0-twb-v3.xml dest=/app/redhat/jboss/jboss-eap-6.4/domain/configuration/host01-6.4.0-twb-v3.xml
+  template: src=host01-6.4.0-twb-v3.xml dest=/app/redhat/jboss/jboss-as-domain/jboss-eap-6.4/domain/configuration/host01-6.4.0-twb-v3.xml
 
 - name: Dropping in JBoss init script. Due to Ansible limitations thus far, this is to be run as a service
   template: src=jboss-as-domain.sh dest=/etc/init.d/jboss-as-domain
@@ -59,32 +62,3 @@
 - name: Setting JBoss EAP permissions
   file: path=/etc/init.d/jboss-as-domain owner=jboss-as mode=0755
   notify: Start JBoss
-
-
-#- name: Adding JBoss service to chkconfig management
-#  shell: /sbin/chkconfig --add jboss-as-domain
-#  notify:
-#        - Start JBoss
-
-#- meta: flush_handlers
-
-#- name: Running the jboss-cli script, to read-resource. The result of this file will be dumped to /root
-#  shell: /bin/bash /root/BP-Oil-Project/ansible-playbook/roles/jboss-eap-domain-host/files/jboss-connector.sh > /root/jboss.txt
-
-#- name: Setting up EWS
-#  file: path=/run/httpd state=directory mode=0755
-
-#- name: Setting Up EWS - Continued
-#  synchronize: src=/root/BP-Oil-Project/ansible-playbook/roles/jboss-eap-domain-host/files/jboss dest=/opt recursive=yes archive=yes
-
-#- name: Setting up the Apache group
-#  group: name=apache gid=48 
-
-#- name: Adding the Apache user
-#  user: name=apache groups=apache shell=/bin/sh comment="Apache User"
-
-#- name: Setting up the Apache permissions
-#  file: path=/opt/jboss/httpd owner=apache group=apache recurse=yes mode=0755 
-
-#- name: Starting Apache
-#  shell: /bin/bash /root/BP-Oil-Project/ansible-playbook/roles/jboss-eap-domain-host/files/start-ews.sh

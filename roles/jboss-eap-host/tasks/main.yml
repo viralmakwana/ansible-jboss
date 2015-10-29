@@ -10,6 +10,12 @@
 - name: Creating JBoss host directory structure
   file: path=/etc/jboss-as-host state=directory mode=0755
 
+- name: Setting up install directory
+  file: path=/app/redhat/jboss/jboss-as-host state=directory mode=0755
+
+- name: Installing EAP
+  unarchive: src=/root/BP-Oil-Project/ansible-playbook/roles/jboss-eap-host/files/jboss-eap.tar.bz2 dst=/app/redhat/jboss/jboss-as-host
+
 - name: Adding the JBoss startup file
   template: src=jboss-as-host.conf dest=/etc/jboss-as-host/jboss-as-host.conf
 
@@ -17,7 +23,7 @@
   template: src=jboss-as-host.sh dest=/etc/init.d/jboss-as-host
 
 - name: Copying JBoss Host configuration file
-  template: src=host02-6.4.0-twb-v3.xml dest=/app/redhat/jboss/jboss-eap-6.4/domain/configuration/host02-6.4.0-twb-v3.xml
+  template: src=host02-6.4.0-twb-v3.xml dest=/app/redhat/jboss/jboss-as-host/jboss-eap-6.4-host/domain/configuration/host02-6.4.0-twb-v3.xml
 
 - name: Setting JBoss init script permissions
   file: path=/etc/init.d/jboss-as-host owner=jboss-as mode=0755
@@ -26,7 +32,7 @@
   file: path=/etc/jboss-as-host/jboss-as-host.conf owner=jboss-as mode=0755
 
 - name: Still fixing permissions
-  file: path=/app/redhat/jboss/jboss-eap-6.4/domain/configuration/host02-6.4.0-twb-v3.xml owner=jboss-as mode=0755
+  file: path=/app/redhat/jboss/jboss-as-host/jboss-eap-6.4-host/domain/configuration/host02-6.4.0-twb-v3.xml owner=jboss-as mode=0755
 
 - name: Adding the JBoss user and updating the host02-6.4.0-twb-2-profiles-v3.xml file to include the base64 hash of the password
   shell: /root/BP-Oil-Project/ansible-playbook/roles/jboss-eap-host/files/add-jboss-user.sh

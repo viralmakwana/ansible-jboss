@@ -1,11 +1,11 @@
 ---
 
 tmp_eap: /tmp/jboss-eap.tar.bz2
-extracted_dir: /app/redhat/jboss
+extracted_dir: /app/redhat/jboss/jboss-as-domain
 tmp_jdgmodules: /tmp/jboss-jdg-modules.tar.bz2
-eap_directory: /app/redhat/jboss/jboss-eap-6.4
-jdg_directory: /app/redhat/jboss/jboss-datagrid-6.5.1-eap-modules-library
-jdg_modules: /app/redhat/jboss/jboss-datagrid-6.5.1-eap-modules-library/modules/org/infinispan/jdg-6.5
-eap_jdgmodules: /app/redhat/jboss/jboss-eap-6.4/modules/system/layers/base/org/infinispan
+eap_directory: /app/redhat/jboss/jboss-as-domain/jboss-eap-6.4
+jdg_directory: /app/redhat/jboss/jboss-as-domain/jboss-datagrid-6.5.1-eap-modules-library
+jdg_modules: /app/redhat/jboss/jboss-as-domain/jboss-datagrid-6.5.1-eap-modules-library/modules/org/infinispan/jdg-6.5
+eap_jdgmodules: /app/redhat/jboss/jboss-as-domain/jboss-eap-6.4/modules/system/layers/base/org/infinispan
 
 
