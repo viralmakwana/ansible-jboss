@@ -485,7 +485,7 @@
 </hornetq-server>
 </subsystem>
             <subsystem xmlns="urn:jboss:domain:modcluster:1.2">
-                <mod-cluster-config advertise-socket="modcluster" connector="ajp">
+                <mod-cluster-config proxy-list="127.0.0.1:6666" advertise="false" connector="ajp">
                     <dynamic-load-provider>
                         <load-metric type="busyness"/>
                     </dynamic-load-provider>
@@ -988,7 +988,7 @@
                 </hornetq-server>
 </subsystem>
             <subsystem xmlns="urn:jboss:domain:modcluster:1.2">
-                <mod-cluster-config advertise-socket="modcluster" connector="ajp">
+                <mod-cluster-config proxy-list="127.0.0.1:6666" advertise="false" connector="ajp">
                     <dynamic-load-provider>
                         <load-metric type="busyness"/>
                     </dynamic-load-provider>
@@ -1304,7 +1304,7 @@
             </subsystem>
 
             <subsystem xmlns="urn:jboss:domain:modcluster:1.2">
-                <mod-cluster-config advertise-socket="modcluster" connector="ajp">
+                <mod-cluster-config proxy-list="127.0.0.1:6666" advertise="false" connector="ajp">
                     <dynamic-load-provider>
                         <load-metric type="busyness"/>
                     </dynamic-load-provider>
@@ -1618,7 +1618,7 @@
             </subsystem>
 
             <subsystem xmlns="urn:jboss:domain:modcluster:1.2">
-                <mod-cluster-config advertise-socket="modcluster" connector="ajp">
+                <mod-cluster-config proxy-list="127.0.0.1:6666" advertise="false" connector="ajp">
                     <dynamic-load-provider>
                         <load-metric type="busyness"/>
                     </dynamic-load-provider>

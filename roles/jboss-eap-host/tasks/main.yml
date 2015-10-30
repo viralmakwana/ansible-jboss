@@ -14,9 +14,9 @@
   file: path=/app/redhat/jboss/jboss-as-host state=directory mode=0755
 
 - name: Installing EAP
-  unarchive: src=/root/BP-Oil-Project/ansible-playbook/roles/jboss-eap-host/files/jboss-eap.tar.bz2 dst=/app/redhat/jboss/jboss-as-host
+  unarchive: src=/root/BP-Oil-Project/ansible-playbook/roles/jboss-eap-host/files/jboss-eap.tar.bz2 dest=/app/redhat/jboss/jboss-as-host
 
-- name: Adding the JBoss startup file
+- name: Adding the JBoss config file
   template: src=jboss-as-host.conf dest=/etc/jboss-as-host/jboss-as-host.conf
 
 - name: Adding the JBoss init script
@@ -32,14 +32,14 @@
   file: path=/etc/jboss-as-host/jboss-as-host.conf owner=jboss-as mode=0755
 
 - name: Still fixing permissions
-  file: path=/app/redhat/jboss/jboss-as-host/jboss-eap-6.4-host/domain/configuration/host02-6.4.0-twb-v3.xml owner=jboss-as mode=0755
+  file: path=/app/redhat/jboss/jboss-as-host/jboss-eap-6.4-host/domain/configuration/host02-6.4.0-twb-v3.xml owner=jboss-as mode=0644
+
+- name: Setting up the clustered web application
+  file: path=/app/redhat/jboss/jboss-as-host owner=jboss-as group=jboss-as mode=0755 recurse=yes
 
 - name: Adding the JBoss user and updating the host02-6.4.0-twb-2-profiles-v3.xml file to include the base64 hash of the password
   shell: /root/BP-Oil-Project/ansible-playbook/roles/jboss-eap-host/files/add-jboss-user.sh
+
+- name: Deploying the application now
+  shell: /app/redhat/jboss/jboss-as-domain/jboss-eap-6.4/bin/jboss-cli.sh --connect --command="deploy --all-server-groups /root/ClusterWebApp.war" --user=bpadmin --password=bP0il@2015
   notify: Start JBoss Host
-
-
-
-
-
-
