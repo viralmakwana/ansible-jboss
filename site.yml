@@ -1,0 +1,6 @@
+ 
+---
+ - include: jboss-jws.yml 
+ - include: jboss-eap-domain.yml
+ - include: jboss-eap-host.yml
+
