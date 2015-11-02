@@ -62,3 +62,8 @@
 - name: Setting JBoss EAP permissions
   file: path=/etc/init.d/jboss-as-domain owner=jboss-as mode=0755
   notify: Start JBoss
+
+- meta: flush_handlers
+
+- name: Adding the BP admin console user
+  shell: /root/BP-Oil-Project/ansible-playbook/roles/jboss-eap-domain/files/add-jboss-user.sh
